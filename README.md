@@ -17,9 +17,11 @@ grep "@M" -c *.fastq
 grep "$primer_sequence" -c *.fastq
 
 F-primer 799F (R1): AACMGGATTAGATACCCKG
+
 grep "AAC.GGATTAGATACCC.G" -c *.fastq
 
 R-primer 1115R (R2): AGGGTTGCGCTCGTTG
+
 grep "AGGGTTGCGCTCGTTG" -c *.fastq
 
 ## Trim adapters
@@ -33,5 +35,7 @@ for i in *.fastq; do /data/apps/bbmap/bbduk.sh in=$i out=adapter-trimmed/$i-trim
 * checkorient : if =t and mothur cannot find the barcodes and primers, it will search the reverse compliment
 * pdiffs : maximum number of differences to the primer
 * bdiffs : maximum number of differences to the barcode
+
 mothur/
+
 make.contigs(ffastq=file_R1_001.fastq, rfastq=file_R2_001.fastq, oligos=oligo_16s.txt, checkorient=t, processors=8, pdiffs=1, bdiffs=1)
