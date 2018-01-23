@@ -26,8 +26,7 @@ grep "AAC.GGATTAGATACCC.G" -c *.fastq
 grep "AGGGTTGCGCTCGTTG" -c *.fastq
 
 ## Trim adapters
-* Trim using bbduk (in case adapters need to be trimmed)
-
+#### Trim using bbduk (in case adapters need to be trimmed)
 for i in *.fastq; do /data/apps/bbmap/bbduk.sh in=$i out=adapter-trimmed/$i-trimmed.fastq ref=/data/apps/bbmap/resources/adapters.fa ktrim=r k=23 mink=11 hdist=1 tbo tpe; done
 
 ## Make contigs using Mothur (for primers with different barcode lengths):
