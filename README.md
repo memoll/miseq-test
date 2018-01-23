@@ -1,18 +1,18 @@
 # miseq-test
-##Study through sequences
-###Unzip files
+## Study through sequences
+### Unzip files
 Gunzip $file.fastq.gz
 
-###View the size of the files
+### View the size of the files
 ls -lh
 
-###Count number of fastq files in the folder
+### Count number of fastq files in the folder
 ls *.fastq | wc -l
 
-###Count the number of sequences in each file
+### Count the number of sequences in each file
 grep "@M" -c *.fastq
 
-###Count primer sequences in each file (use . instead of wild-card nucleotides)
+### Count primer sequences in each file (use . instead of wild-card nucleotides)
 grep "$primer_sequence" -c *.fastq
 
 R-primer 799F (R1): AACMGGATTAGATACCCKG
