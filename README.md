@@ -13,19 +13,21 @@ ls *.fastq | wc -l
 ### Count the number of sequences in each file
 grep "@M" -c *.fastq
 
-### Count primer sequences in each file (use . instead of wild-card nucleotides)
+### Count primer sequences in each file 
+#### use . instead of wild-card nucleotides
 grep "$primer_sequence" -c *.fastq
 
-F-primer 799F (R1): AACMGGATTAGATACCCKG
+* F-primer 799F (R1): AACMGGATTAGATACCCKG
 
 grep "AAC.GGATTAGATACCC.G" -c *.fastq
 
-R-primer 1115R (R2): AGGGTTGCGCTCGTTG
+* R-primer 1115R (R2): AGGGTTGCGCTCGTTG
 
 grep "AGGGTTGCGCTCGTTG" -c *.fastq
 
 ## Trim adapters
-Trim using bbduk (in case adapters need to be trimmed)
+* Trim using bbduk (in case adapters need to be trimmed)
+
 for i in *.fastq; do /data/apps/bbmap/bbduk.sh in=$i out=adapter-trimmed/$i-trimmed.fastq ref=/data/apps/bbmap/resources/adapters.fa ktrim=r k=23 mink=11 hdist=1 tbo tpe; done
 
 ## Make contigs using Mothur (for primers with different barcode lengths):
