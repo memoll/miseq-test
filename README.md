@@ -44,7 +44,7 @@ mothur > summary.seqs(fasta=file.trim.contigs.fasta)
 mothur > screen.seqs(fasta=file.trim.contigs.fasta, group=file.contigs.groups, maxambig=0, maxlength=xxx, processors=10)
 * It will remove any sequences with ambiguous bases and anything longer than xxx bp (being chosen based on the summary), and produces .good.fasta and .good.groups files.
 
-## Convert Mothur fasta file for a QIIME fasta file 
+## Convert Mothur fasta file to QIIME fasta file 
 * Use .good.fasta and .good.groups files from mothur
 
 awk 'NR==FNR {h[$1] = $2; next} /^>/ {split(substr($0,2), array, "\t")} /^>/ {print ">" h[array[1]] "_" ++i, substr($0,2); next} {print}' file.contigs.good.groups file.trim.contigs.good.fasta > out_QIIME.fasta
