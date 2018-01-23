@@ -37,6 +37,15 @@ for i in *.fastq; do /data/apps/bbmap/bbduk.sh in=$i out=adapter-trimmed/$i-trim
 * pdiffs : maximum number of differences to the primer
 * bdiffs : maximum number of differences to the barcode
 
-mothur/
+mothur > make.contigs(ffastq=file_R1_001.fastq, rfastq=file_R2_001.fastq, oligos=oligo_16s.txt, checkorient=t, processors=8, pdiffs=1, bdiffs=1)
 
-make.contigs(ffastq=file_R1_001.fastq, rfastq=file_R2_001.fastq, oligos=oligo_16s.txt, checkorient=t, processors=8, pdiffs=1, bdiffs=1)
+mothur > summary.seqs(fasta=file.trim.contigs.fasta)
+
+mothur > screen.seqs(fasta=file.trim.contigs.fasta, group=file.contigs.groups, maxambig=0, maxlength=xxx, processors=10)
+* It will remove any sequences with ambiguous bases and anything longer than xxx bp (being chosen based on the summary), and produces .good.fasta and .good.groups files.
+
+## Convert Mothur fasta file for a QIIME fasta file 
+* Use .good.fasta and .good.groups files from mothur
+
+awk 'NR==FNR {h[$1] = $2; next} /^>/ {split(substr($0,2), array, "\t")} /^>/ {print ">" h[array[1]] "_" ++i, substr($0,2); next} {print}' file.contigs.good.groups file.trim.contigs.good.fasta > out_QIIME.fasta
+
