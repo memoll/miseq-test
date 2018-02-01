@@ -7,7 +7,7 @@ Gunzip $file.fastq.gz
 ### View the size of the files
 ls -lh
 
-### Count number of fastq files in the folder
+### Count the number of fastq files in the folder
 ls *.fastq | wc -l
 
 ### Count the number of sequences in each file
