@@ -1,0 +1,25 @@
+## Mona Parizadeh - January 2018
+
+## Data preparation for DADA2
+
+### As mentioned in DADA2 tutorial, for the analysis we'll need paired-end sequences in fastq format that have been split (or “demultiplexed”) by sample and also the barcodes/adapters have already been removed.
+### If you are using barcodes with the same length, we may want to use "extract_barcodes.py" and "split_libraries_fastq.py" or "split_libraries.py" from Qiime1
+
+### Extract barcodes from trimmed sequences
+#### If the barcodes have variant lengths, go with the longest size for each of the forward (bc1) and reverse (bc) barcode.
+#### --rev_comp_bc2 reverses complement barcode 2 before writing
+
+extract_barcodes.py -f file-trimmed_R1.fastq -r file-trimmed_R2.fastq -c barcode_paired_stitched --bc1_len 18 --bc2_len 17 --rev_comp_bc2 -o qiime-split
+
+### "split_libraries_fastq.py" doesn't have an option to extract various length barcodes, in that case, we'll need to convert fastq files to fasta and qual files and then use "split_libraries.py" with the -b variable_length argument.
+
+## Split fastq files to fasta and qual
+### Convert trimmed sequences format from fastq to fasta and qual
+
+convert_fastaqual_fastq.py -f file-trimmed.fastq -c fastq_to_fastaqual -o fastaqual
+
+
+python /data/shared/scripts/fastq_to_fasta_qual.py $file-trimmed
+
+split_libraries.py -m mapping_miseq_16S.txt -f rawdata/adapter-trimmed/fastqual/Mona-run-test_S1_L001_R1_001.fastq-trimmed.fasta -q rawdata/adapter-trimmed/fastqual/Mona-run-test_S1_L001_R1_001.fastq-trimmed.qual -b variable_length -z truncate_only -d --record_qual_scores -o demultiplexed/ 
+
