@@ -15,6 +15,15 @@ knitr::opts_chunk$set(echo = TRUE,
                       fig.path = "graphics/plot",
                       fig.align="center")
 ```
+## under construction ;)
+
+
+DADA2 is a pipeline for detecting and correcting (where possible) Illumina amplicon sequence data. 
+(As implemented in the q2-dada2 plugin, this quality control process will additionally filter any phiX reads (commonly present in marker gene Illumina sequence data) that are identified in the sequencing data, and will filter chimeric sequences.) -Qiime2 tutorial-
+
+```{r}
+
+```
 
 
 #### Package preparation ####

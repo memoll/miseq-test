@@ -3,7 +3,10 @@
 ## Data preparation for DADA2
 
 ### As mentioned in DADA2 tutorial, for the analysis we'll need paired-end sequences in fastq format that have been split (or “demultiplexed”) by sample and also the barcodes/adapters have already been removed.
-### If you are using barcodes with the same length, we may want to use "extract_barcodes.py" and "split_libraries_fastq.py" or "split_libraries.py" from Qiime1
+### If you are using barcodes with the same length, you can use "extract_barcodes.py" and "split_libraries_fastq.py" or "split_libraries.py" from Qiime1
+
+
+
 
 ### Extract barcodes from trimmed sequences
 #### If the barcodes have variant lengths, go with the longest size for each of the forward (bc1) and reverse (bc) barcode.

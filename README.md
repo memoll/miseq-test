@@ -27,25 +27,9 @@ grep "AGGGTTGCGCTCGTTG" -c *.fastq
 
 ## Trim adapters
 #### Trim using bbduk (in case adapters need to be trimmed)
+#### If there are several fastq files
 for i in *.fastq; do /data/apps/bbmap/bbduk.sh in=$i out=adapter-trimmed/$i-trimmed.fastq ref=/data/apps/bbmap/resources/adapters.fa ktrim=r k=23 mink=11 hdist=1 tbo tpe; done
 
-## Make contigs using Mothur (for primers with different barcode lengths):
-#### Add the oligo_16s.txt to the folder
-* ffastq, rfastq : forward and reverse fastq
-* oligos : takes a .txt file that contains the sequences of the paired primers and barcodes and their sample identifier
-* checkorient : if =t and mothur cannot find the barcodes and primers, it will search the reverse compliment
-* pdiffs : maximum number of differences to the primer
-* bdiffs : maximum number of differences to the barcode
-
-mothur > make.contigs(ffastq=file_R1_001.fastq, rfastq=file_R2_001.fastq, oligos=oligo_16s.txt, checkorient=t, processors=8, pdiffs=1, bdiffs=1)
-
-mothur > summary.seqs(fasta=file.trim.contigs.fasta)
-
-mothur > screen.seqs(fasta=file.trim.contigs.fasta, group=file.contigs.groups, maxambig=0, maxlength=xxx, processors=10)
-* It will remove any sequences with ambiguous bases and anything longer than xxx bp (being chosen based on the summary), and produces .good.fasta and .good.groups files.
-
-## Convert Mothur fasta file to QIIME fasta file 
-* Use .good.fasta and .good.groups files from mothur
-
-awk 'NR==FNR {h[$1] = $2; next} /^>/ {split(substr($0,2), array, "\t")} /^>/ {print ">" h[array[1]] "_" ++i, substr($0,2); next} {print}' file.contigs.good.groups file.trim.contigs.good.fasta > out_QIIME.fasta
+#### If there are only 2fastq files (R1 and R2)
+/data/apps/bbmap/bbduk.sh -Xmx1g in=file_R#_001.fastq out=adapter-trimmed/file-trimmed_R#.fastq ref=/data/apps/bbmap/resources/adapters.fa ktrim=r k=23 mink=11 hdist=1 tbo tpe
 
